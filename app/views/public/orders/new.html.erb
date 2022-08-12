@@ -1,0 +1,58 @@
+/cake/app/views/public/orders/new.html.erb
+<div class="container">
+  <div class="row">
+    
+    <div class="col-md-12">
+    <div class="col-md-5">
+    <div class="text-white bg-warning mb-5 text-center">
+      <h2>注文情報入力</h2>
+    </div>
+   </div>
+    
+
+    <b>支払方法</b>
+　  <%= form_with model:@order do |f| %>
+    <%= f.radio_button "クレジットカード",class:"pl-1" %>
+    <%= f.radio_button "銀行振込",class:"pl-1" %>
+    
+    <% end %>
+    
+    
+    <b>お届け先</b>
+    <div class="form-check">
+      <input class="form-check-input" type="radio" name="radio1" id="radio1a" checked>
+      <label class="form-check-label" for="radio1a">ご自身の住所</label>
+    </div>
+    <p>顧客の登録済み住所</p>
+    
+    <div class="form-check">
+      <input class="form-check-input" type="radio" name="radio1" id="radio1a" checked>
+      <label class="form-check-label" for="radio1a">登録済み住所から選択</label>
+    </div>
+    <div class="form-group">
+      <select id="select1a" class="form-control">
+        <option>住所１</option>
+        <option>住所２</option>
+      </select>
+    </div>
+    
+    <div class="form-check">
+      <input class="form-check-input" type="radio" name="radio1" id="radio1a" checked>
+      <label class="form-check-label" for="radio1a">新しいお届け先</label>
+    </div>
+    <dl class="row">
+      <dt class="col-sm-5">郵便番号（ハイフンなし）</dt>
+      <dd class="col-sm-7">□</dd>
+      <dt class="col-sm-5">住所</dt>
+      <dd class="col-sm-7">□</dd>
+      <dt class="col-sm-5">宛名</dt>
+      <dd class="col-sm-7">□</dd>
+    </dl>
+    
+    
+    
+
+    
+    </div>  
+  </div>
+</div>

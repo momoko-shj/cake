@@ -1,0 +1,41 @@
+<p>/cake/app/views/admin/items/index.html.erb</p>
+
+<div class="container">
+<div class="row">
+<div class="col-md-11 offset-md-1">
+  
+<div class ="row">  
+ <div class="col-md-5">
+  <div class="text-white bg-info text-center mb-5">
+   <h2>商品一覧</h2>
+ </div>
+ </div>
+</div>
+
+<div class ="row">  
+ <div class="col-md-12">
+  <table class="w-100% table table-bordered">
+   <%= form_with model:@item do |f| %>
+  <tr>
+  <th class="col-md-1">商品ID</th>
+  <th class="col-md-4">商品名</th>
+  <th class="col-md-2">税抜価格</th>
+  <th class="col-md-2">ジャンル</th>
+  <th class="col-md-3">ステータス</th>
+  </tr>
+  <tr>
+  <td>item_id</td>
+  <td>name</td>
+  <td>price</td>
+  <td>genre</td>
+  <td>is_active</td>
+  <% end %>
+  </tr>
+  </tabel>
+ </div>
+</div>
+
+    
+    </div>  
+  </div>
+</div>
