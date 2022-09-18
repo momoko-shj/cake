@@ -1,24 +1,22 @@
-<p>Find me in app/views/admin/genres/edit.html.erb</p>
-
-<div class="container">
-<div class="row">
-<div class="col-md-11 offset-md-1">
-  
-<div class ="row">  
-  <div class="col-md-5">
-   <div class="text-white bg-info text-center mb-5">
-   <h2>ジャンル編集</h2>
-   </div>
+<div class="container pt-3">
+  <div class="row">
+    <div class="col-md-11 offset-md-1">
+    
+    <div class ="row">  
+      <div class="col-md-5">
+        <div class="text-white bg-info text-center mb-5">
+          <h4>ジャンル編集</h4>
+        </div>
+      </div>
+    </div>
+    
+      <%= form_with model: @genre, url: admin_genre_path(@genre) do |f| %>
+    <label>ジャンル名</label>
+      <%= f.text_field:name,autoforcus:true,id:"inputName",placeholder:@genre.name,class:'form-control name' %>
+      <%= f.submit "変更を保存",class:"btn btn-success mt-3" %>
+      <% end %>
+    
+    </div>
   </div>
-</div>
-
-<%= form_with model:@genre.url:edit_admin_genre_path do |f| %>
-<label>ジャンル名</label>
-<%= f.text_field:name,autoforcus:true,id:"inputName",placeholder:@user.name,class:'form-control name' %>
-<% end %>
-
-
-</div>
-</div>
 </div>
 

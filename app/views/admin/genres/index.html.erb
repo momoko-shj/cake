@@ -1,49 +1,49 @@
-<p>Find me in app/views/admin/genres/index.html.erb</p>
-<div class="container">
-<div class="row">
-<div class="col-md-11 offset-md-1">
-  
-<div class ="row">  
-  <div class="col-md-5">
-   <div class="text-white bg-info text-center mb-5">
-   <h2>ジャンル一覧・追加</h2>
-   </div>
-  </div>
-</div>
-
-<div class ="row">
- <div class="col-md-6"> 
-   <table class="table table-bordereless">
-    <tr>
-     <td class="col-md-2">ジャンル名</td>
-     <td class="col-md-3">
-      <%= form_with model:@genre,url:admin_genres_path do |f| %>
-      <%= f.text_field :name %>
-     </td>
-     <td class="col-md-2">
-      <%= f.submit '新規登録',class:"btn btn-success" %>
-      <% end %>
-     </td>
-    </tr>
-  </table>
-</div>
-</div>
-  
+<div class="container pt-3">
+ <div class="row">
+  <div class="col-md-12">
  
- <table class="table table-bordered">
-  <th colspan="2">ジャンル</th>
-  <tr>
-    <% @genres.each do |genre| %>
-    <td><%= link_to genre.name %></td>
-    <td><%= link_to"編集する",edit_admin_genre_path(genre),class:"btn btn-sm btn-success" %></td>
-  </tr>
-  <% end %>
-</table>
-
+   <div class ="row">  
+    <div class="col-md-5">
+     <div class="text-white bg-info text-center mb-5">
+      <h4>ジャンル一覧・追加</h4>
+     </div>
+    </div>
+   </div>
+   
+   <%= form_with model:@genre,url:admin_genres_path do |f| %>
+   <div class ="row">
+    <div class="col-md-2">
+     ジャンル名
+    </div>
+    <div class="col-md-3">
+     <%= f.text_field :name %>
+    </div>
+    <div class="col-md-3">
+     <%= f.submit '新規登録',class:"btn btn-success" %>
+    </div>
+   </div>
+   <% end %>
+   
+   <div class = "row pt-4 pt-5">
+    <div class ="col-md-3 border-bottom">
+     ジャンル
+    </div>
+    <div class ="col-md-3 border-bottom">
+    </div>
+   </div>
+   
+   <% @genres.each do |genre| %>
+   <div class = "row pt-3">
+    <div class ="col-md-3">
+     <%= genre.name %>
+    </div>
+    <div class ="col-md-3">
+     <%= link_to"編集する",edit_admin_genre_path(genre),class:"btn btn-success" %>
+     <%= link_to"削除する",admin_genre_path(genre),method: :delete,class:"btn btn-danger" %>
+    </div>
+   </div>
+   <% end %>
+   
+  </div>
+ </div>
 </div>
-</div>
-</div>
-
-
-
-

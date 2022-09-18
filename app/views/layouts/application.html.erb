@@ -1,16 +1,125 @@
 <!DOCTYPE html>
+
 <html>
   <head>
     <title>Cake</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <!--<meta name="viewport" content="width=device-width,initial-scale=1">-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
     <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <script src="https://kit.fontawesome.com/e68a7fc3c8.js" crossorigin="anonymous"></script>
   </head>
-
+  
   <body>
-    <%= yield %>
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark" >
+        
+        <div class="container">
+          <a class="navbar-brand" href="/">
+            <span>
+            ながのCAKE
+            </span>
+          </a>
+          
+          <botton class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>  
+          </botton>
+          
+          <%= render 'layouts/search' %>
+          
+          <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav ml-auto">
+            
+              <% if customer_signed_in? %>
+                <p class = "text-light bg-dark pr-5 pt-2" >
+                  ようこそ<%= current_customer.last_name %><%= current_customer.first_name %>さん
+                </p>
+                <li>
+                  <%= link_to customer_path(current_customer),class: "nav-link text-light" do %>
+                  <i class="fas fa-home"></i> マイページ
+                  <% end %>
+                </li>
+                <li>
+                  <%= link_to items_path,class:"nav-link text-light" do %>
+                  <i class="fa-solid fa-cake-candles" ></i>商品一覧
+                  <% end %>
+                </li>
+                <li>
+                  <%= link_to cart_items_path(current_customer),class:"nav-link text-light" do %>
+                  <i class="fa-solid fa-cart-plus" ></i>カート
+                  <% end %>
+                </li>
+                <li>
+                  <%= link_to destroy_customer_session_path, method: :delete,class:"nav-link text-light" do %>
+                  <i class="fas fa-sign-out-alt" ></i>ログアウト
+                  <% end %>
+                </li>
+              
+              <% elsif admin_signed_in? %>
+                <li>
+                  <%= link_to admin_items_path,class:"nav-link text-light" do %>
+                  <i class="fa-solid fa-cake-candles"></i>商品一覧
+                  <% end %>
+                </li>
+                <li>
+                  <%= link_to admin_customers_path,class:"nav-link text-light" do %>
+                  <i class="fa-solid fa-user-group"></i>会員一覧
+                  <% end %>
+                </li>
+                <li>
+                  <%= link_to admin_root_path,class:"nav-link text-light" do %>
+                  <i class="fa-solid fa-file-invoice"></i>注文履歴一覧
+                  <% end %>
+                </li>
+                <li>
+                  <%= link_to admin_genres_path, class:"nav-link text-light" do %>
+                  <i class="fa-solid fa-magnifying-glass"></i>ジャンル一覧
+                  <% end %>
+                </li>
+                <li>
+                  <%= link_to destroy_admin_session_path, method: :delete,class:"nav-link text-light" do %>
+                  <i class="fas fa-sign-out-alt" ></i>ログアウト
+                  <% end %>
+                </li>
+                
+              <% else %>
+                <li>
+                  <%= link_to about_path,class:"nav-link text-light" do %>
+                  <i class="fa-regular fa-face-smile"></i>About
+                  <% end %>
+                </li>
+                <li>
+                  <%= link_to items_path,class:"nav-link text-light" do %>
+                  <i class="fa-solid fa-cake-candles"></i>商品一覧
+                  <% end %>
+                </li>
+                  <li>
+                  <%= link_to new_customer_registration_path,class:"nav-link text-light" do %>
+                  <i class="fas fa-user-plus"></i>新規登録
+                  <% end %>
+                </li>
+                <li>
+                  <%= link_to new_customer_session_path, class:"nav-link text-light" do %>
+                  <i class="fas fa-sign-in-alt"></i>ログイン
+                  <% end %>
+                </li>
+              <% end %>
+              
+           </ul>
+          </div>
+         </div>
+        </div>
+        
+      </nav>
+    </header>
+    
+    <main>
+      <% flash.each do |message_type, message|%>
+        <%= content_tag(:div, message, class: message_type) %>
+      <% end %>
+      <%= yield %>
+    </main>
   </body>
 </html>

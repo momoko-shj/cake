@@ -1,55 +1,75 @@
-/cake/app/views/public/addresses/index.html.erb
-
 <div class="container">
-  <div class="row">
-  <div class="col-md-11 offset-md-1">
+  <div class="row row-cols-auto">
+    <div class="col-md-12 ">
+      
+      <div class="row pt-5">
+        <div class="col-md-5">
+          <div class="text-white bg-warning mb-5 text-center">
+            <h4>配達先登録/一覧</h4>
+          </div>
+        </div>
+      </div>
+      
+      <div class="row pb-5">
+        <div class="col-md-3">
+          <p>郵便番号（ハイフンなし)</p>
+          <p>住所</p>
+          <p>宛名</p>
+        </div>
+        
+        <div class="col-md-7">
+          <%= form_with model:@address do |f| %>
+          <div class="col-md-5">
+            <%= f.text_field :postal_code,class: 'form-control'%>
+          </div>
+          <div class="col-md-12 mt-2">
+            <%= f.text_field :address,class: 'form-control'%>
+          </div>
+          <div class="col-md-5 mt-2">
+            <%= f.text_field :name,class: 'form-control'%>
+          </div>
+        </div>
+        <div class="col-md-2 align-self-end">
+          <%=f.submit '新規登録',class:"btn btn-success btn-lg" %>
+          <% end %>
+        </div>
+      </div>
+      
+      <table class = "table-bordered">
+        <tr>
+          <th class="col-md-2">
+            郵便番号
+          </th>
+          <th class="col-md-5">
+            住所
+          </th>
+          <th class="col-md-3">
+            宛名
+          </th>
+          <th class="col-md-2">
+          </th>
+        </tr>
+        
+        <% @addresses.each do |address| %> 
+        <tr>  
+          <td>
+            <%= address.postal_code %>
+          </td>
+          <td>
+            <%= address.address %>
+          </td>
+          <td>
+            <%= address.name %>
+          </td>
+          <td>
+            <%= link_to "編集する",edit_address_path(address),class:"btn btn btn-success btn-sm" %>
+            <%= link_to "削除する",address_path(address), method: :delete,class:"btn btn btn-danger btn-sm" %>
+          </td>
+        </tr>
+        <% end %>
+        
+      </table>
     
-    <div class="row">
-    <div class="col-md-5 offset-md-1">
-      <div class="text-white bg-warning mb-5 text-center"><h2>配達先登録/一覧</h2></div>
     </div>
-    </div>
-  
-  <div class="row">
-   <div class="col-md-3">
-     <p>郵便番号（ハイフンなし</p>
-     <p>住所</p>
-     <p>宛名</p>
-   </div>
-   <div class="col-md-7">
-     <%= form_with model:@address do |f| %>
-     <div class="col-sm-5"><%= f.number_field :postal_code,class: 'form-control'%></div>
-     <div class="col-sm-12 mt-2"><%= f.text_field :address,class: 'form-control'%></div>
-     <div class="col-sm-5 mt-2"><%= f.text_field :address,class: 'form-control'%></div>
-   </div>
-   <div class="col-md-2 align-self-end">
-     <%=f.submit '新規登録',class:"btn btn-success" %>
-     <% end %>
-   </div>
-  </div>
-    
-  
-  <div class="row">
-   <table class="w-100% table table-bordered mt-5">
-    <%= form_with model:@address do |f| %>
-    <tr>
-    <th class="col-sm-1">郵便番号</th>
-    <th class="col-sm-5">住所</th>
-    <th class="col-sm-3">宛名</th>
-    <th class="col-sm-3"></th>
-    </tr>
-    <tr>
-    <td>postal_code</td>
-    <td>address</td>
-    <td>name</td>
-    <td align="center"> <%=f.submit '編集する',class:"btn btn-info" %> <%=f.submit '削除する',class:"btn btn-danger" %></td>
-    <% end %>
-    </tr>
-   </tabel>
-  </div>
-  
-  </div>
   </div>
 </div>
-
-<!--https://v4.bootstrap-guide.com/content/typography-->

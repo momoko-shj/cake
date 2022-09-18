@@ -1,58 +1,88 @@
-/cake/app/views/public/orders/new.html.erb
 <div class="container">
-  <div class="row">
-    
+  <div class="row pr-5 pt-3">
     <div class="col-md-12">
-    <div class="col-md-5">
-    <div class="text-white bg-warning mb-5 text-center">
-      <h2>注文情報入力</h2>
+      
+      <div class="col-md-5">
+        <div class="text-white bg-warning mb-5 text-center">
+        <h4>注文情報入力</h4>
+        </div>
+      </div>
+      
+      <%= form_with model: @order ,url: comfirm_path, method: :post do |f| %> 
+      
+        <div class = "row">    
+          <div class="col-md-5">
+            <b>支払方法</b>
+            <label class = "offset-1">
+              <%= f.radio_button :payment_method, Order.payment_methods.key(0) %>
+              <%= f.label :payment_method, Order.payment_methods_i18n[:credit_card] %>
+            </label>
+            <label class = "offset-1">
+              <%= f.radio_button :payment_method, Order.payment_methods.key(1) %>
+              <%= f.label :payment_method, Order.payment_methods_i18n[:transfer]%>
+            </label>
+          </div>
+        </div>
+        
+        <div class = "row pt-3">
+          <div class="col-md-12">
+            <b>お届け先</b>
+            <br>
+            <label class = "pl-1">
+              <%= f.radio_button :select_address, 0 %>
+              ご自身の住所
+            </label>
+            <br>
+            <label class = "pl-3">
+              〒<%= @customer.postal_code %> <%= @customer.address %>
+            </label>
+            <br>
+            <label class = "pl-3">
+              <%= @customer.last_name %><%= @customer.first_name %>
+            </label>
+          </div>  
+        </div>
+        
+        <div class = "row pt-3">    
+          <div class="col-md-12">
+            <label class = "pl-1">
+              <%= f.radio_button :select_address, 1 %>
+              登録済み住所から選択
+            </label>
+            <br>
+            <div class = "row">
+              <label class = "col-md-10 pl-5">
+                <%= f.select :address_id, options_from_collection_for_select(current_customer.addresses, :id, :address_display) %>
+              </label>
+            </div>  
+          </div>
+        </div>
+        
+        <div class = "row pt-3">
+          <div class="col-md-12">
+            <label class = "pl-1">
+              <%= f.radio_button  :select_address, 2 %>
+              新しいお届け先
+            </label>
+            <br>
+            <label class = "col-md-5 pl-3">
+              郵便番号<%= f.text_field :postal_code,class: 'form-control' %> 
+            </label>
+            <br>
+            <label class = "col-md-10 pl-3">
+              住所<%= f.text_area :address,class: 'form-control' %> 
+            </label>
+            <br>
+            <label class = "col-md-5 pl-3">
+              宛名<%= f.text_field :name,class: 'form-control' %>
+            </label>
+          </div>
+        </div>
+        
+        <div class = "row pt-3">
+        <%= f.submit "確認画面に進む",class:"btn btn-success offset-2" %>
+        </div>
+      <% end %>
     </div>
-   </div>
-    
-
-    <b>支払方法</b>
-　  <%= form_with model:@order do |f| %>
-    <%= f.radio_button "クレジットカード",class:"pl-1" %>
-    <%= f.radio_button "銀行振込",class:"pl-1" %>
-    
-    <% end %>
-    
-    
-    <b>お届け先</b>
-    <div class="form-check">
-      <input class="form-check-input" type="radio" name="radio1" id="radio1a" checked>
-      <label class="form-check-label" for="radio1a">ご自身の住所</label>
-    </div>
-    <p>顧客の登録済み住所</p>
-    
-    <div class="form-check">
-      <input class="form-check-input" type="radio" name="radio1" id="radio1a" checked>
-      <label class="form-check-label" for="radio1a">登録済み住所から選択</label>
-    </div>
-    <div class="form-group">
-      <select id="select1a" class="form-control">
-        <option>住所１</option>
-        <option>住所２</option>
-      </select>
-    </div>
-    
-    <div class="form-check">
-      <input class="form-check-input" type="radio" name="radio1" id="radio1a" checked>
-      <label class="form-check-label" for="radio1a">新しいお届け先</label>
-    </div>
-    <dl class="row">
-      <dt class="col-sm-5">郵便番号（ハイフンなし）</dt>
-      <dd class="col-sm-7">□</dd>
-      <dt class="col-sm-5">住所</dt>
-      <dd class="col-sm-7">□</dd>
-      <dt class="col-sm-5">宛名</dt>
-      <dd class="col-sm-7">□</dd>
-    </dl>
-    
-    
-    
-
-    
-    </div>  
   </div>
 </div>

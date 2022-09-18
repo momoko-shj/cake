@@ -1,4 +1,93 @@
-
-<h2>会員情報編集</h2>
-<h1>Admin::Customers#edit</h1>
-<p>Find me in app/views/admin/customers/edit.html.erb</p>
+<div class="container pt-3">
+ <div class="row">
+  
+  <div class="col-md-5">
+   <div class="text-white bg-info md-5 text-center">
+    <h4>会員情報編集</h4>
+   </div>
+  </div>
+ </div>
+ 
+   <%= form_with model:@customer, url:admin_customer_path(@customer),method: :patch do |f| %>
+  <div class="row pt-4">
+    <div class="col-md-2">
+     氏名
+    </div>
+    <div class="col-md-4">
+     <%= f.text_field :last_name,autofocus:true,class: 'form-control'%>
+    </div>
+    <div class="col-md-4">
+     <%= f.text_field :first_name,class: 'form-control'%>
+    </div>
+  </div>
+    
+    <div class ="row pt-4">
+     <div class="col-md-2">
+      フリガナ
+     </div>
+     <div class="col-md-4">
+      <%= f.text_field :last_name_kana,class: 'form-control'%>
+     </div>
+     <div class="col-md-4">
+      <%= f.text_field :first_name_kana,class: 'form-control'%>
+     </div>
+    </div>
+   
+    <div class ="row pt-4">
+     <div class="col-md-2">
+      郵便番号(ハイフンなし)
+     </div>
+     <div class="col-md-4">
+      <%= f.text_field :postal_code,class: 'form-control' %>
+     </div>
+     <div class="col-md-4"></div>
+    </div>
+    
+    <div class ="row pt-4">
+     <div class="col-md-2">
+      住所
+     </div>
+     <div class="col-md-9">
+      <%= f.text_field :address,class: 'form-control'%>
+     </div>
+    </div>
+    
+    <div class ="row pt-4">
+     <div class="col-md-2">
+      電話番号(ハイフンなし)
+     </div>
+     <div class="col-md-4">
+      <%= f.text_field :telephone_number,class: 'form-control' %>
+     </div>
+     <div class="col-md-4">
+     </div>
+    </div>
+    
+    <div class ="row pt-4">
+     <div class="col-md-2">メールアドレス</div>
+     <div class="col-md-4"><%= f.email_field :email, autocomplete: "email" %></div>
+     <div class="col-md-4"></div>
+    </div>
+    
+    <div class ="row pt-4">
+     <div class="col-md-2">
+      会員ステータス
+     </div>
+     <div class="col-md-1">
+      <%= f.radio_button :is_deleted,"false" %>
+      <%= f.label :false,"有効" %>
+     </div>
+     <div class="col-md-1">
+      <%= f.radio_button :is_deleted,"true" %>
+      <%= f.label :true,"退会" %>
+     </div>
+    </div>
+    
+    <div class ="row pt-4">
+     <div class="col-md-2"></div>
+     <div class="col-md-4">
+       <%= f.submit '変更を保存',class:"btn btn-success btn-block mr-2" %>
+     </div>
+    </div>
+       <% end %>
+</div>

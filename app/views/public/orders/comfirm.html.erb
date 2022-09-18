@@ -1,2 +1,105 @@
-<h2>注文情報確認</h2>
-/cake/app/views/public/orders/comfirm.html.erb
+<div class="container">
+ 
+ <div class="row  row-cols-auto pt-5">
+  <div class="col-md-6">
+   <div class="text-white bg-warning text-center">
+    <h4>注文情報詳細</h4>
+   </div>
+  </div>
+ </div>
+ 
+ <div class = "row row-cols-auto pt-3">
+  <div class = "col-8">
+   <table class = "table table-bordered text-center">
+    <tr>
+     <th class ="col-md-5">
+      商品名
+     </th>
+     <th class ="col-md-2">
+      単価(税込)
+     </th>
+     <th class ="col-md-2">
+      数量
+     </th>
+     <th class ="col-md-3">
+      小計
+     </th>
+    </tr>
+    
+    <% @cart_items.each do |cart_item| %>
+     <tr>
+      <td>
+       <%= image_tag cart_item.item.get_image(50,50), class:"small-img" %>
+       <%= cart_item.item.name %>
+      </td>
+      <td>
+       <%= number_to_currency(cart_item.item.with_tax_price, unit: "¥", format: "%u %n", precision: 0) %>
+      </td>
+      <td>
+       <%= cart_item.amount %>
+      </td>
+      <td>
+       <%= number_to_currency(cart_item.subtotal, unit: "¥", format: "%u %n", precision: 0) %> 
+      </td>
+     </tr>
+       <% @total += cart_item.subtotal %>
+    <% end %>
+   </table>
+  </div>
+  
+  <div class = "col-4 ">
+   <table class = "table  table-bordered text-center">
+    <tr>
+     <td class = "col-md-1">
+      <b>送料</b>
+     </td>
+     <td class = "col-md-1">
+      <%= number_to_currency(@shipping_cost, unit: "¥", format: "%u %n", precision: 0) %>
+     </td>
+    </tr>
+    <tr>
+     <td class = "col-md-2">
+      <b>商品合計</b>
+     </td>
+     <td class = "col-md-2">
+      <%= number_to_currency(@total, unit: "¥", format: "%u %n", precision: 0) %>
+     </td>
+    </tr>
+    <tr>
+     <td class = "col-md-2">
+      <b>請求合計</b>
+     </td>
+     <td class = "col-md-2">
+      <%= number_to_currency(@total += @shipping_cost, unit: "¥", format: "%u %n", precision: 0) %>
+     </td>
+    </tr>
+   </table>
+  </div>
+ </div>
+ 
+  <div class = "row pt-2">
+   <b>支払方法</b>
+   <br><%= @order.payment_method_i18n %>
+  </div>
+  <div class = "row pt-2">
+    <b>お届け先</b>
+    <br>〒<%= @order.postal_code %><%= @order.address %>
+    <br><%= @order.name %>
+   </div>
+
+ 
+ <div class = "row pt-3">
+  <div class="col-md-8 offset-2" >
+   <%= form_with model: @order, url:orders_path do |f| %>
+    <%= f.hidden_field :name, value: @order.name %>
+    <%= f.hidden_field :address, value: @order.address %>
+    <%= f.hidden_field :postal_code, value: @order.postal_code %>
+    <%= f.hidden_field :shipping_cost, value: @shipping_cost %>
+    <%= f.hidden_field :total_payment, value: @total %>
+    <%= f.hidden_field :payment_method, value: @order.payment_method %>
+    <%= f.submit "注文を確定する",class:"btn btn-success" %>
+   <% end %>
+  </div>
+ </div>
+ 
+</div>

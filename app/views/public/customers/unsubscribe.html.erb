@@ -1,2 +1,25 @@
-<h2>本当に退会しますか？</h2>
-/cake/app/views/public/customers/unsubscribe.html.erb
+<div class="container">
+ <div class="row pt-5">
+  <div class="col-md-8">
+   <h2 class="mb-3 mt-5  text-center">
+    <b>本当に退会しますか？</b>
+   </h2>
+   <p class=" text-center">
+    退会すると、会員情報や<br>
+    これまでの購入履歴が閲覧できなくなります。<br>
+    退会する場合は、「退会する」をクリックしてください。
+   </p>
+  </div>
+ </div>
+</div>
+
+<div class="container">
+ <div class ="row">
+  <div class ="col-md-4 align-self-center">
+   <%= link_to "退会しない",customer_path(@customer),class:"btn btn-info btn-block mr-2" %>
+  </div>
+  <div class ="col-md-4 align-self-center">
+   <%= link_to "退会する",withdraw_customers_path(@customer),method: :patch,class:"btn btn-danger btn-block mr-2" %>
+  </div>
+ </div>
+</div>

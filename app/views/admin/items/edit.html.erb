@@ -1,2 +1,85 @@
-<h2>商品編集</h2>
-/cake/app/views/admin/items/edit.html.erb
+<div class="container pt-3">
+ <div class="row">
+  <div class="col-md-11 offset-md-1">
+  
+   <div class ="row">  
+    <div class="col-md-5">
+     <div class="text-white bg-info text-center mb-5">
+      <h4>商品編集</h4>
+     </div>
+    </div>
+   </div>
+   
+   <%= form_with model: @item,url: admin_item_path(@item), method: :patch, local:true do |f| %>
+   <div class ="row">  
+    <label class="col-md-2">
+     商品画像
+    </label>
+    <div class="col-md-10 mt-2">
+     <%= f.file_field :image, accept: "image/*", class:"form-control-file user-image mb-2" %>
+    </div>
+   </div>
+   
+   <div class ="row">
+    <label class="col-md-2 mt-2">
+     商品名
+    </label>
+    <div class="col-md-10 mt-2">
+     <%= f.text_field :name,autoforcus:true,id:"inputName",placeholder:@item.name,class:"form-control name mb-2" %>
+    </div>
+   </div>
+   
+   <div class ="row">
+    <label class="col-md-2 mt-2">
+     商品説明
+    </label>
+    <div class="col-md-10 mt-2">
+     <%= f.text_area :introduction,class:"form-control name mb-2" %>
+    </div>
+   </div>
+   
+   <div class ="row">
+    <label class="col-md-2 mt-2">
+     税抜価格
+    </label>
+    <div class="col-md-10 mt-2">
+     <%= f.text_field :price,class:"select-group mb-2 mt-2" %>円
+    </div>
+   </div>
+   
+   <div class = "row">
+    <label class = "col-md-2 mt-2">
+     ジャンル
+    </label>
+    <div class = "col-md-10 mt-2">
+     <%= f.select :genre_id, options_from_collection_for_select(Genre.all, :id, :name, @item.genre) %>
+    </div>
+   </div>
+   
+   <div class ="row">
+    <label class="col-md-2 mt-2">
+     販売ステータス
+    </label>
+    <div class="col-md-10">
+     <%= f.radio_button :is_active, :true %>
+     <label class ="pr-3 mt-2">
+      販売中
+     </label>
+     <%= f.radio_button :is_active, :false %>
+     <label class="pr-3">
+      販売停止中
+     </label> 
+    </div>
+   </div>
+   
+   <div class="row">
+    <div class="col-md-10 offset-2">
+     <%= f.submit "変更を保存",class:"btn btn-success col-md-2 mt-2" %>
+    </div>
+   </div>
+   
+   <% end %>
+   
+  </div>  
+ </div>
+</div>

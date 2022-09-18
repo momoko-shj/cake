@@ -1,2 +1,54 @@
-<h1>商品詳細</h1>
-<p>Find me in app/views/public/items/show.html.erb</p>
+<div class="container">
+ <div class="row pt-5">
+  <div class="col-md-12">
+   <div class="row">
+    
+    <div class="col-md-2">
+     <p>ジャンル検索</p>
+     <% @genres.each do |genre| %>
+      <ul>
+       <%= link_to genre.name,items_path(genre_id: genre.id) %>
+      </ul>
+     <% end %>
+    </div>
+    
+    <div class="col-md-4">
+     <%= image_tag @item.get_image(300,300),class:"offset-md-1 show-img" %>
+    </div>
+    
+    <div class="col-md-6">
+     <% if @item.is_active == true %>
+      <h4 class="mb-3">
+       <b><%= @item.name %></b>
+      </h4>
+      <p class="mb-3">
+       <%= @item.introduction %>
+      </p>
+      <%= number_to_currency(@item.with_tax_price, unit: "¥", format: "%u %n", precision: 0) %>(税込)
+      <% if customer_signed_in? %>
+       <p class="pt-3">
+        数量を選択してください
+       </p>
+        <%= form_with model:@cart_item do |f| %>
+         <%= f.hidden_field :item_id, :value => @item.id %>
+         <%= f.select :amount, *[1..10] %>
+         <%= f.submit "カートに入れる",class:"btn btn-success" %>
+        <% end %>
+      <% end %>
+      
+     <% else %>
+      <h4 class="mb-3">
+       <b><%= @item.name %></b>
+      </h4>
+      <p class="mb-3">
+       <%= @item.introduction %>
+       <br><b>(ただいま販売を停止しています)</b>
+      </p>
+      <%= number_to_currency(@item.with_tax_price, unit: "¥", format: "%u %n", precision: 0) %>(税込)
+     <% end %>
+    </div>
+    
+   </div>
+  </div>
+ </div>  
+</div>

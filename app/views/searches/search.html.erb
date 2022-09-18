@@ -1,0 +1,33 @@
+<div class="container pt-3">
+  <div class="row row-cols-auto offset-2">
+    
+    <div class="col-md-12 ">
+      <div class="row pt-5">
+        <div class="col-md-5">
+          <div class="text-white bg-warning mb-5 text-center">
+            <h4>検索結果一覧</h4>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="row pt-3 pl-5">
+      <table>
+        <% @items.each do |item| %>
+          <tr>
+            <td>
+              <%= image_tag item.get_image(100,100),class:"top-img" %>
+            </td>
+            <td>
+              <%= link_to item.name, item_path(item) %>
+            </td>
+            <td>
+              <%= number_to_currency(item.with_tax_price, unit: "¥", format: "%u %n", precision: 0) %>
+            </td>
+          </tr>
+        <% end %>
+      </table> 
+    </div>
+    
+  </div>
+</div>

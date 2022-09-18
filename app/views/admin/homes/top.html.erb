@@ -1,34 +1,57 @@
-<p>Find me in app/views/admin/homes/top.html.erb</p>
-
-<div class="container">
-<div class="row">
-<div class="col-md-12">
- <div class="row">
-  <div class="col-md-4">
-    <div class="text-white bg-info text-center">
-     <h2>注文履歴一覧</h2>
+<div class="container pt-3">
+  <div class="row row-cols-auto">
+    <div class="col-md-12">
+    
+      <div class="row">
+        <div class="col-md-4">
+          <div class="text-white bg-info text-center">
+            <h4>注文履歴一覧</h4>
+          </div>
+        </div>
+      </div>
+      
+      <div class = "row pt-3">
+        <div class = "col-md-3">
+          購入日時
+        </div>
+        <div class = "col-md-3">
+          購入者
+        </div>
+        <div class = "col-md-2">
+          注文個数
+        </div>
+        <div class = "col-md-4">
+          注文ステータス
+        </div>
+      </div>
+      
+      <div class ="row pt-3">
+        <% @orders.reverse_each do |order| %>
+        <div class = "col-md-3">
+          <%= link_to order.created_at.strftime("%Y-%m-%d %H:%M") ,admin_order_path(order) %>
+        </div>
+        <div class = "col-md-3">
+          <%= order.customer.last_name %><%= order.customer.first_name %>
+        </div>
+        <div class = "col-md-2">
+          <% @total = 0 %>
+          <% order.order_details.each do |order_detail| %>
+          <% @total += order_detail.amount %>
+          <% end %>
+          <%= @total %>
+        </div>
+        <div class = "col-md-4">
+          <%= order.status_i18n %>
+        </div>
+        <% end %>
+      </div>
+      
+      <div class ="row pt-3">
+        <div class = "col-md-8 offset-5">
+          <%= paginate @orders %>
+        </div>
+      </div>
+    
     </div>
   </div>
 </div>
-
-<div class="row mt-5">
-  <table class="table table-striped">
- <tr>
-  <th class="col-sm-3">購入日時</th>
-  <th class="col-sm-3">購入者</th>
-  <th class="col-sm-2">注文個数</th>
-  <th class="col-sm-2">注文ステータス</th>
- </tr>
- <tr>
-  <td>created_at</td>
-  <td>name</td>
-  <td>amount</td>
-  <td>making_status</td>
- </tr>
-</table>
-</div>
-
-</div>
-</div>
-</div>
-

@@ -1,35 +1,45 @@
-/cake/app/views/public/orders/index.html.erb
-
 <div class="container">
- <div class="row">
+ <div class="row pt-5">
   <div class="col-md-12">
   <div class="col-md-5">
-   <div class="text-white bg-warning mb-5 text-center"><h2>注文履歴一覧</h2></div>
+   <div class="text-white bg-warning mb-5 text-center"><h4>注文履歴一覧</h4></div>
   </div>
   
-  <div class="row"> 
+  <div class="row">
   <table class="table table-striped">
     <tr>
-      <th class="col-sm-1">注文日</th>
-      <th class="col-sm-4">配送先</th>
-      <th class="col-sm-3">注文商品</th>
-      <th class="col-sm-1">支払金額</th>
-      <th class="col-sm-2">ステータス</th>
-      <th class="col-sm-1">注文詳細</th>
+      <th class="col-md-1">注文日</th>
+      <th class="col-md-4">配送先</th>
+      <th class="col-md-3">注文商品</th>
+      <th class="col-md-1">支払金額</th>
+      <th class="col-md-2">ステータス</th>
+      <th class="col-md-1">注文詳細</th>
     </tr>
-    <tr>
-     <%= form_with model:@address do |f| %>
-      <td>create_time</td>
-      <td>address</td>
-      <td>items</td>
-      <td>total_payment</td>
-      <td>status</td>
-      <td><%=f.submit '表示する',class:"btn btn-success" %></td>
+    
+     <% @orders.each do |orders| %>
+     <tr>
+      <td><%= orders.created_at.strftime('%Y/%m/%d') %></td>
+      <td>
+       <%= orders.postal_code %><br>
+       <%= orders.address %><br>
+       <%= orders.name %>
+      </td>
+      <td>
+       <% orders.order_details.each do |order_details| %>
+       <%= order_details.item.name %><br>
+       <% end %>
+      </td>
+      <td><%= number_to_currency(orders.total_payment, unit: "¥", format: "%u %n", precision: 0) %></td>
+      <td><%= orders.status_i18n %></td>
+      <td><%= link_to '表示する',order_path(orders),class:"btn btn-success" %></td> 
+     </tr>
      <% end %>
-    </tr>
+    
   </tabel>
   </div>
   
   </div>  
  </div>
 </div>
+
+<!--ステータス表示　https://nllllll.com/ruby-on-rails/enum-status/-->
